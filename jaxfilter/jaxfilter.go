@@ -6,7 +6,7 @@ func square(x float64) float64 {
 	return x * x
 }
 
-// A TranslationHighPassFilter is a high pass filter for translation.
+// A TranslationHighPassFilter is a high pass filter for translation.TranslationHighPassFilter是一个用于变换的高通滤波器。
 type TranslationHighPassFilter struct {
 	SamplingTime    uint
 	CutoffFrequency float64
@@ -14,18 +14,18 @@ type TranslationHighPassFilter struct {
 	outputs         [3]float64
 }
 
-// Filter passes the high frequency component of a signal.
+// Filter passes the high frequency component of a signal.这个滤波器通过信号的高频分量。
 func (f *TranslationHighPassFilter) Filter(input float64) float64 {
 	// T[s]×ωn
 	tw := f.CutoffFrequency * float64(f.SamplingTime) / 1000
 
 	f.inputs[0] = input
 
-	// Solve the difference equation
+	// Solve the difference equation解差分方程
 	f.outputs[0] = square(2/(tw+2))*(f.inputs[0]-2*f.inputs[1]+f.inputs[2]) -
 		2*(tw-2)/(tw+2)*f.outputs[1] - square((tw-2)/(tw+2))*f.outputs[2]
 
-	// Delay
+	// Delay延迟
 	for i := 0; i < 2; i++ {
 		f.inputs[2-i] = f.inputs[1-i]
 		f.outputs[2-i] = f.outputs[1-i]
@@ -33,7 +33,7 @@ func (f *TranslationHighPassFilter) Filter(input float64) float64 {
 	return f.outputs[0]
 }
 
-// A TranslationLowPassFilter is a low pass filter for rotation.
+// A TranslationLowPassFilter is a low pass filter for rotation.TranslationLowPassFilter是用于旋转的低通滤波器。
 type TranslationLowPassFilter struct {
 	SamplingTime    uint
 	CutoffFrequency float64
@@ -42,7 +42,7 @@ type TranslationLowPassFilter struct {
 	outputs         [3]float64
 }
 
-// Filter passes the low frequency component of a signal.
+// Filter passes the low frequency component of a signal.滤波器通过信号的低频分量。
 func (f *TranslationLowPassFilter) Filter(input float64) float64 {
 	f.inputs[0] = input
 
@@ -50,7 +50,7 @@ func (f *TranslationLowPassFilter) Filter(input float64) float64 {
 	t2w2 := square(f.CutoffFrequency * float64(f.SamplingTime) / 1000)
 	dw4T := 4 * f.DampingRatio * f.CutoffFrequency * float64(f.SamplingTime) / 1000
 
-	// Solve the difference equation
+	// Solve the difference equation解差分方程
 	f.outputs[0] = (t2w2)/(t2w2+dw4T+4)*(f.inputs[0]+2*f.inputs[1]+f.inputs[2]) -
 		(1/(t2w2+dw4T+4))*(2*(t2w2-4)*f.outputs[1]+(t2w2-dw4T+4)*f.outputs[2])
 
@@ -64,7 +64,7 @@ func (f *TranslationLowPassFilter) Filter(input float64) float64 {
 
 }
 
-// A RotationHighPassFilter is a high pass filter for rotation.
+// A RotationHighPassFilter is a high pass filter for rotation.RotationHighPassFilter是用于旋转的高通滤波器。
 type RotationHighPassFilter struct {
 	SamplingTime    uint
 	CutoffFrequency float64
@@ -72,7 +72,7 @@ type RotationHighPassFilter struct {
 	outputs         [2]float64
 }
 
-// Filter passes the high frequency component of a signal.
+// Filter passes the high frequency component of a signal.滤波器通过信号的高频分量。
 func (f *RotationHighPassFilter) Filter(input float64) float64 {
 	f.inputs[0] = input
 
