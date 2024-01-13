@@ -1,7 +1,7 @@
 {
-    // IntelliSense を使用して利用可能な属性を学べます。
-    // 既存の属性の説明をホバーして表示します。
-    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    // IntelliSense を使用して利用可能な属性を学べます。您可以使用IntelliSense来了解可用的属性。
+    // 既存の属性の説明をホバーして表示します。悬停显示现有属性的说明。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387有关更多信息，请访问
     "version": "0.2.0",
     "configurations": [{
             "name": "Launch test package",
